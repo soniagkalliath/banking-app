@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User home Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="transaction.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="jumbotron">
+        <form [formGroup]="registerForm" (ngSubmit)="register()">
+            <h1> WELCOME TO SBI BANK </h1>
+
+            <div class="form-group">
+            
+                <label for="username" >Username</label>
+                <!-- <input type="text" #useraccnum class="form-control" id="accno" > -->
+                <input type="text" formControlName="name" name="username" class="form-control" id="username" >
+                <div *ngIf="getError('name')" class="errors">Name is Invalid</div>
+        
+            </div>
+           
+<!-- reactive forms -->
+            <div class="form-group">
+               
+                
+                <label for="accno">Account Number</label>
+                <!-- <input type="text" #useraccnum class="form-control" id="accno" > -->
+                <input type="text" formControlName="accno" name="accno" class="form-control" id="accno"
+                    aria-describedby="accHelp">
+                    <div *ngIf="getError('accno')" class="errors">Account Number is Invalid</div>
+                <small id="accHelp" class="form-text text-muted">We'll never share your account details with anyone
+                    else.</small>
+
+
+            </div>
+           <!-- #userpswd -->
+
+            <div class="form-group">
+                <!-- {{pswd}} -->
+                <label for="pswd">Password</label>
+                <input type="password" formControlName="pswd" name="pswd" class="form-control" id="pswd">
+            </div>
+            <div *ngIf="getError('pswd')" class="errors">Password is Invalid</div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+            <div class="form-group">
+                <!-- {{pin}} -->
+                <label for="pin">Pin</label>
+                <input type="password" formControlName="pin" name="pin" class="form-control" id="pin">
+            </div>
+            <div *ngIf="getError('pin')" class="errors">Pin is Invalid</div>
+            <button type="submit" class="btn btn-primary">Register</button>
+
+            <a routerLink="">Back to Login</a>
+        </form>
+    </div>
+
+
+
+</div>
+<a routerLink="">Login</a>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User home Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="transaction.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="jumbotron">
+        <form action="" [formGroup]="loginForm" (ngSubmit)="login()">
+            <h1> WELCOME TO SBI BANK </h1>
+
+            <div class="form-group">
+                <!-- String interpolation -->
+                <!-- {{accno}} -->
+                <label for="accno">Account Number</label>
+                <!-- <input type="text" #useraccnum class="form-control" id="accno" > -->
+                <input type="text" formControlName="accno" name="accno" class="form-control" id="accno"
+                    aria-describedby="accHelp">
+                     <div *ngIf="getError('accno')" class="error">Invalid Account Number </div>
+                <small id="accHelp" class="form-text text-muted">We'll never share your account details with anyone
+                    else.</small>
+
+
+            </div>
+           <!-- #userpswd -->
+
+            <div class="form-group">
+                <label for="pswd">Password</label>
+                <input type="password" formControlName="pswd" name="pswd" class="form-control" id="pswd">
+            </div>
+            <div *ngIf="getError('pswd')" class="error">Invalid Password           </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary" >Login</button>
+
+            <a routerLink="register">Register</a>
+        </form>
+    </div>
+
+
+
+</div>
+</body>
+</html>

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DataService } from '../service/data.service';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -7,16 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  accountDetails = {//accountdetail is an obj of bank
-    1001: { name: "user1", accno: 1001, pin: 2345, pswd: "userone", balance: 3000 },//another obj
-    1002: { name: "user2", accno: 1002, pin: 2445, pswd: "usertwo", balance: 3000 },
-    1003: { name: "user3", accno: 1003, pin: 2343, pswd: "userthree", balance: 3000 },
-    1004: { name: "user4", accno: 1004, pin: 2245, pswd: "userfour", balance: 3000 },
-    1005: { name: "user5", accno: 1005, pin: 2355, pswd: "userfive", balance: 3000 }
-  }
-   accno="";
-   pswd="";
-  constructor() { }
+  
+  loginForm=this.fb.group({
+        accno:['',[ Validators.required, Validators.minLength(3)]],
+    pswd:['',[ Validators.required]]
+    
+  })
+
+  constructor(private router:Router,
+    private dataService:DataService,
+    private fb:FormBuilder) { }
 
   ngOnInit(): void {
   }
@@ -30,8 +33,28 @@ export class LoginComponent implements OnInit {
   //   alert("password number changed")
   //   this.pswd= event.target.value 
   // }
-
+  getError(field){
+    return (this.loginForm.get(field).touched||this.loginForm.get(field).dirty)&&this.loginForm.get(field).errors
+      }
   login(){
+    if(this.loginForm.valid){
+    
+  
+      const result= this.dataService.login(this.loginForm.value.accno,this.loginForm.value.pswd)
+   
+       if (result){
+        // alert(this.accountDetails[accno])
+         alert("Logged in successfully .")
+         this.router.navigateByUrl("dashboard");
+       }
+       else{
+         alert("Invalid Credentials")
+       }
+      }
+       else{
+         alert("Invalid Form")
+       }
+    
   // login(useraccnum,userpswd){
     // var accnum = this.accno; // event binding method here event as argument in login()
     // var password1 = this.pswd;
@@ -40,25 +63,7 @@ export class LoginComponent implements OnInit {
   //   var password1 = userpswd.value;
   //  // alert(accnum + " , " + password1)
    
-  var accnum = parseInt(this.accno); //ngModule, here no as argument in login()
-  var password1 = this.pswd;
-
-
-   let data = this.accountDetails;
-
-    if (accnum in data) {
-      let pswd1 = data[accnum].pswd
-      if (pswd1 == password1) {
-        alert("Successful login")
-        window.location.href="userhome.html"
-      }
-      else {
-        alert("Incorect password")
-      }
-    }
-    else {
-      alert("User doesnot exist")
-    }
+ 
   }
 
 }

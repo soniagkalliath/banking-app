@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User home Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="transaction.js"></script>
+</head>
+
+<body>
+    <form action="" [formGroup]="depositForm" (ngSubmit)="deposit()">
+        <h1>Welcome {{dataService.currentUser.name}}</h1>
+
+        <div class="container">
+            <div class="jumbotron">
+
+                <div class="row">
+                    <div class="col">
+                        <h2> Cash Deposit</h2>
+
+                        <table>
+                            <tr>
+                                <td>accno</td>
+                                <td><input type="text" formControlName="accno" name="accno" id="txtaccno"></td>
+                                <div *ngIf="getError('accno')" class="errors">Account Number is Invalid</div>
+                            </tr>
+                            <tr>
+                                <td>pin</td>
+                                <td><input type="text" formControlName="pin" id="txtpin"></td>
+                                <div *ngIf="getError('pin')" class="errors">PIN is Invalid</div>
+                            </tr>
+                            <tr>
+                                <td>Amount</td>
+                                <td><input type="text" formControlName="amount" id="txtamnt"></td>
+                                <div *ngIf="getError('amount')" class="errors">Amount is Invalid</div>
+                            </tr>
+                            <tr>
+                                <td><button type="submit" class="btn btn-primary" value="proceed">proceed</button></td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <form action="" [formGroup]="withdrawForm" (ngSubmit)="withdraw()">
+
+        <div class="container">
+            <div class="jumbotron">
+                <div class="row">
+                    <div class="col">
+
+                        <h2>Cash Withdrawal</h2>
+
+
+                        <table>
+                            <tr>
+                                <td>accno</td>
+                                <td><input type="text" formControlName="accno1" name="accno" id="txtaccno"></td>
+                                <div *ngIf="getwError('accno1')" class="errors">Account Number is Invalid</div>
+                            </tr>
+                            <tr>
+                                <td>pin</td>
+                                <td><input type="text" formControlName="pin1" id="txtpin"></td>
+                                <div *ngIf="getwError('pin1')" class="errors">PIN is Invalid</div>
+                            </tr>
+                            <tr>
+                                <td>Amount</td>
+                                <td><input type="text" formControlName="amount1" id="txtamnt"></td>
+                                <div *ngIf="getwError('amount1')" class="errors">Amount is Invalid</div>
+                            </tr>
+                            <tr>
+                                <td><button type="submit" class="btn btn-primary" value="proceed">proceed</button></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </form>
+</body>
+
+</html>
