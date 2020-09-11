@@ -29,7 +29,7 @@
                             </tr>
                             <tr>
                                 <td>pin</td>
-                                <td><input type="text" formControlName="pin" id="txtpin"></td>
+                                <td><input type="password" formControlName="pin" id="txtpin"></td>
                                 <div *ngIf="getError('pin')" class="errors">PIN is Invalid</div>
                             </tr>
                             <tr>
@@ -38,7 +38,7 @@
                                 <div *ngIf="getError('amount')" class="errors">Amount is Invalid</div>
                             </tr>
                             <tr>
-                                <td><button type="submit" class="btn btn-primary" value="proceed">proceed</button></td>
+                                <td><button type="submit" class="btn btn-primary" value="proceed">Deposit</button></td>
                             </tr>
                         </table>
 
@@ -65,7 +65,7 @@
                             </tr>
                             <tr>
                                 <td>pin</td>
-                                <td><input type="text" formControlName="pin1" id="txtpin"></td>
+                                <td><input type="password" formControlName="pin1" id="txtpin"></td>
                                 <div *ngIf="getwError('pin1')" class="errors">PIN is Invalid</div>
                             </tr>
                             <tr>
@@ -74,7 +74,7 @@
                                 <div *ngIf="getwError('amount1')" class="errors">Amount is Invalid</div>
                             </tr>
                             <tr>
-                                <td><button type="submit" class="btn btn-primary" value="proceed">proceed</button></td>
+                                <td><button type="submit" class="btn btn-primary" value="proceed">Withdraw</button></td>
                             </tr>
                         </table>
                     </div>

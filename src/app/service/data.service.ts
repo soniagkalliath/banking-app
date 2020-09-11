@@ -5,11 +5,11 @@ import { Injectable } from '@angular/core';
 })
 export class DataService {
   accountDetails = {//accountdetail is an obj of bank
-    1001: { name: "user1", accno: 1001, pin: 2345, pswd: "userone", balance: 3000 },//another obj
-    1002: { name: "user2", accno: 1002, pin: 2445, pswd: "usertwo", balance: 3000 },
-    1003: { name: "user3", accno: 1003, pin: 2343, pswd: "userthree", balance: 3000 },
-    1004: { name: "user4", accno: 1004, pin: 2245, pswd: "userfour", balance: 3000 },
-    1005: { name: "user5", accno: 1005, pin: 2355, pswd: "userfive", balance: 3000 }
+    1001: { name: "user1", accno: 1001, pin: 2345, pswd: "userone", balance: 3000, transactions: []},//another obj
+    1002: { name: "user2", accno: 1002, pin: 2445, pswd: "usertwo", balance: 3000 , transactions: []},
+    1003: { name: "user3", accno: 1003, pin: 2343, pswd: "userthree", balance: 3000 , transactions: []},
+    1004: { name: "user4", accno: 1004, pin: 2245, pswd: "userfour", balance: 3000 , transactions: []},
+    1005: { name: "user5", accno: 1005, pin: 2355, pswd: "userfive", balance: 3000, transactions: [] }
   }
   currentUser: any;
 
@@ -20,6 +20,9 @@ export class DataService {
     }
   }
 
+  getTransaction(){
+return this.accountDetails[this.currentUser.accno].transactions;
+  }
   getDetails() {
     if (localStorage.getItem("accountDetails")) {
       this.accountDetails = JSON.parse(localStorage.getItem("accountDetails"))
@@ -41,7 +44,8 @@ export class DataService {
       accno,
       pin,
       pswd,
-      balance: 0
+      balance: 0,
+      transactions: []
     }
     this.saveDetails()
     return true;
@@ -76,6 +80,10 @@ export class DataService {
       let pin1 = data[accnum].pin
       if (pin1 == userpin) {
         data[accnum].balance += useramount
+        data[accnum].transactions.push({
+          amount:useramount,
+          type:'Deposit'
+        })
         //return true
         this.saveDetails()
         // return (data[accnum].balance)
@@ -110,16 +118,21 @@ export class DataService {
     if (accnum in data) {
       let pin1 = data[accnum].pin
 
-      if (data[accnum].balance < 0) {
+      if (data[accnum].balance < useramount) {
         return {
           status: false,
-          Message: 'Insufficient balance.'
+          Message: 'Insufficient balance.',
+          balance: data[accnum].balance
         }
       }
 
       else if (pin1 == userpin) {
 
         data[accnum].balance -= useramount
+        data[accnum].transactions.push({
+          amount:useramount,
+          type:'Withdraw'
+        })
         this.saveDetails()
         //  //return true
         //  this.saveDetails()

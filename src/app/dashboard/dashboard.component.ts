@@ -78,6 +78,7 @@ export class DashboardComponent implements OnInit {
          }
       else if(result.status==false){
         alert(result.Message)
+        // alert("Current balance is: "+result.balance)
       }
     }
        else{
