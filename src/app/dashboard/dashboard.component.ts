@@ -39,21 +39,22 @@ export class DashboardComponent implements OnInit {
 
     if(this.depositForm.valid){
     
-  
-      const result= this.dataService.deposit(this.depositForm.value.accno,this.depositForm.value.pin,this.depositForm.value.amount )
+        const result= this.dataService.deposit(this.depositForm.value.accno,this.depositForm.value.pin,this.depositForm.value.amount )
    
-       if (result){
-        // alert(this.accountDetails[accno])
+      // if (result){
+         if(result.status==true){
 
-         alert("Amount credited successfully. ")
-         alert("Updated Balance is: "+result)
-         //this.router.navigateByUrl("");
-       }
-      else{
-        alert("Invalid Credantials")
-      }}
+        //  alert("Amount credited successfully. ")
+        //  alert("Updated Balance is: "+result)
+         alert(result.Message)
+         alert("Updated balance is: "+result.balance)
+         }
+      else if(result.status==false){
+        alert(result.Message)
+      }
+    }
        else{
-         alert("Invalid Form")
+        alert("Invalid Form")
        }
   }
 
@@ -67,16 +68,16 @@ export class DashboardComponent implements OnInit {
     
   
       const result= this.dataService.withdraw(this.withdrawForm.value.accno1,this.withdrawForm.value.pin1,this.withdrawForm.value.amount1 )
-   
-       if (result){
-        // alert(this.accountDetails[accno])
-       // alert(result)
-         alert("Amount debited successfully. ")
-         alert("Updated Balance is: "+result)
-         //this.router.navigateByUrl("");
-       }
-      else{
-        alert("Invalid Credantials")
+   // if (result){
+      if(result.status==true){
+
+        //  alert("Amount credited successfully. ")
+        //  alert("Updated Balance is: "+result)
+         alert(result.Message)
+         alert("Updated balance is: "+result.balance)
+         }
+      else if(result.status==false){
+        alert(result.Message)
       }
     }
        else{

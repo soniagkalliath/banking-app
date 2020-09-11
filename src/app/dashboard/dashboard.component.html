@@ -12,13 +12,14 @@
 <body>
     <form action="" [formGroup]="depositForm" (ngSubmit)="deposit()">
         <h1>Welcome {{dataService.currentUser.name}}</h1>
+        <a href="\transactionDetails">View Transaction History</a>
 
         <div class="container">
             <div class="jumbotron">
 
                 <div class="row">
                     <div class="col">
-                        <h2> Cash Deposit</h2>
+                        <h2> Cash Deposit Form</h2>
 
                         <table>
                             <tr>
@@ -53,7 +54,7 @@
                 <div class="row">
                     <div class="col">
 
-                        <h2>Cash Withdrawal</h2>
+                        <h2>Cash Withdrawal Form</h2>
 
 
                         <table>

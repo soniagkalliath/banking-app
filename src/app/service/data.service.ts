@@ -11,83 +11,140 @@ export class DataService {
     1004: { name: "user4", accno: 1004, pin: 2245, pswd: "userfour", balance: 3000 },
     1005: { name: "user5", accno: 1005, pin: 2355, pswd: "userfive", balance: 3000 }
   }
-currentUser: any;
-  constructor() { }
-  register(username,accno,pin,pswd){
-    if (accno in this.accountDetails){
+  currentUser: any;
+
+  saveDetails() {
+    localStorage.setItem("accountDetails", JSON.stringify(this.accountDetails))
+    if (this.currentUser) {
+      localStorage.setItem("currentUser", JSON.stringify(this.currentUser))
+    }
+  }
+
+  getDetails() {
+    if (localStorage.getItem("accountDetails")) {
+      this.accountDetails = JSON.parse(localStorage.getItem("accountDetails"))
+    }
+    if (localStorage.getItem("currentUser")) {
+      this.currentUser = JSON.parse(localStorage.getItem("currentUser"))
+    }
+  }
+  constructor() {
+    this.getDetails()
+  }
+  register(name, accno, pin, pswd) {
+    if (accno in this.accountDetails) {
       alert("Account is already exist. Please log in")
       return false;
     }
-    this.accountDetails[accno]={
-      username,
+    this.accountDetails[accno] = {
+      name,
       accno,
       pin,
       pswd,
-      balance:0
+      balance: 0
     }
-    
+    this.saveDetails()
     return true;
   }
 
-  login(accno,pswd){
+  login(accno, pswd) {
     var accnum = parseInt(accno); //ngModule, here no as argument in login()
     var password1 = pswd;
-  
-  
-     var data = this.accountDetails;
-  
-      if (accnum in data) {
-        let pswd1 = data[accnum].pswd
-        if (pswd1 == password1) {
-          this.currentUser=data[accnum]
-          return true
-          // window.location.href="userhome.html"
-         
-        }
-      }  
+
+
+    var data = this.accountDetails;
+
+    if (accnum in data) {
+      let pswd1 = data[accnum].pswd
+      if (pswd1 == password1) {
+        this.currentUser = data[accnum]
+        this.saveDetails()
+        return true
+        // window.location.href="userhome.html"
+
+      }
+    }
   }
 
-  deposit(accno,pin,amount){
+  deposit(accno, pin, amount) {
 
     var accnum = parseInt(accno); //ngModule, here no as argument in login()
     var userpin = pin;
-    var useramount= parseInt(amount);
-  
-  
-     var data = this.accountDetails;
-  
-      if (accnum in data) {
-        let pin1 = data[accnum].pin
-        if (pin1 == userpin) {
-         data[accnum].balance+=useramount
-         //return true
-          return (data[accnum].balance)
-          // window.location.href="userhome.html"
-         
+    var useramount = parseInt(amount);
+    var data = this.accountDetails;
+    if (accnum in data) {
+      let pin1 = data[accnum].pin
+      if (pin1 == userpin) {
+        data[accnum].balance += useramount
+        //return true
+        this.saveDetails()
+        // return (data[accnum].balance)
+        return {
+          status: true,
+          Message: 'Amount credited successfully.',
+          balance: data[accnum].balance
         }
-      }  
+      }
+
+      else {
+        return {
+          status: false,
+          Message: 'Incorrect account details.',
+          //  balance:data[accnum].balance
+        }
+      }
+    }
+
 
   }
 
-  withdraw(accno,pin,amount){
+  withdraw(accno, pin, amount) {
 
     var accnum = parseInt(accno); //ngModule, here no as argument in login()
     var userpin = pin;
-    var useramount= parseInt(amount);
-  
-  
-     var data = this.accountDetails;
-  
-      if (accnum in data) {
-        let pin1 = data[accnum].pin
-        if (pin1 == userpin) {
-         data[accnum].balance-=useramount
-         //return true
-          return (data[accnum].balance)
-          // window.location.href="userhome.html"
-         
-        }
-      }  
+    var useramount = parseInt(amount);
 
+
+    var data = this.accountDetails;
+
+    if (accnum in data) {
+      let pin1 = data[accnum].pin
+
+      if (data[accnum].balance < 0) {
+        return {
+          status: false,
+          Message: 'Insufficient balance.'
+        }
+      }
+
+      else if (pin1 == userpin) {
+
+        data[accnum].balance -= useramount
+        this.saveDetails()
+        //  //return true
+        //  this.saveDetails()
+        //   return (data[accnum].balance)
+        return {
+          status: true,
+          Message: 'Amount debited successfully.',
+          balance: data[accnum].balance
+        }
+      }
+
+      else {
+        return {
+          status: false,
+          Message: 'Incorrect account details.',
+
+        }
+      }
+    }
+    else {
+      return {
+        status: false,
+        Message: 'Incorrect account details.',
+
+      }
+    }
   }
 }

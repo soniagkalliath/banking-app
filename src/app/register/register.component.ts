@@ -32,7 +32,7 @@ register(){
   if(this.registerForm.valid){
     
   
-   const result= this.dataService.register(this.registerForm.value.username,this.registerForm.value.accno,this.registerForm.value.pswd,this.registerForm.value.pin )
+   const result= this.dataService.register(this.registerForm.value.name,this.registerForm.value.accno,this.registerForm.value.pswd,this.registerForm.value.pin )
 
     if (result){
      // alert(this.accountDetails[accno])
