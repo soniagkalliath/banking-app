@@ -82,7 +82,7 @@ return this.accountDetails[this.currentUser.accno].transactions;
         data[accnum].balance += useramount
         data[accnum].transactions.push({
           amount:useramount,
-          type:'Deposit'
+          type:'Credit'
         })
         //return true
         this.saveDetails()
@@ -131,7 +131,7 @@ return this.accountDetails[this.currentUser.accno].transactions;
         data[accnum].balance -= useramount
         data[accnum].transactions.push({
           amount:useramount,
-          type:'Withdraw'
+          type:'Debit'
         })
         this.saveDetails()
         //  //return true
